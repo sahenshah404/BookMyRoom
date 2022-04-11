@@ -1,23 +1,22 @@
-import logo from './logo.svg';
-import './App.css';
+import Headers from "./Header/Header";
+import Footer from "./Footer/Footer";
+import Body from "./Body/Body";
+import { LoginProvider } from "../context/LoginContext";
 
 function App() {
+
+  // fetch("/home")
+  // .then((data)=>{
+  //   data.text().then(d => console.log(d));
+  // })
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <LoginProvider>
+        <Headers />
+        <Body />
+        <Footer />
+      </LoginProvider>
     </div>
   );
 }

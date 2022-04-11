@@ -1,0 +1,12 @@
+.hostelPics{
+    object-fit: contain;
+}
+
+.carousel-item{
+    padding-left: 9%;
+}
+
+.carousel-item img{
+    height: 450px;
+    width: 90%;
+}

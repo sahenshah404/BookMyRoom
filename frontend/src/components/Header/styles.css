@@ -1,0 +1,15 @@
+
+.navbar{
+    font-weight: 500;
+}
+
+.navbar-dark .navbar-brand {
+  background-color: rgb(201, 32, 32);
+  border-radius: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.nav-link {
+  color: rgba(255,255,255, .85) !important;
+}
