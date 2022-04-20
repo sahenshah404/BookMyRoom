@@ -3,7 +3,8 @@ import { Routes, Route } from "react-router-dom";
 
 import Hostels from './Hostels/Hostels';
 import Login from './Login/Login';
-import AdminDashboard from './Admin/AdminDashboard';
+import Registration from './Registration/Registration';
+import Account from './Account/Account';
 
 function Body() {
     return <div >
@@ -11,8 +12,9 @@ function Body() {
             <Route path='/' element={<Hostels />} />
             <Route path='/home' element={<Hostels />} />
             <Route path="/login/*" element={<Login />} />
-            {/* <Route path="/register"/> */}
-            <Route path='/adminDashboard' element={<AdminDashboard/>} />
+            <Route path="/register/*" element={<Registration />} />
+            
+            <Route path='/account/*' element={<Account />} />
         </Routes>
     </div>
 };

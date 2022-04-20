@@ -15,7 +15,6 @@ const authCheck = (req, res, next) => {
                     role: payload.data.role
                 }
                 res.json(response);
-
             }
             // console.log(payload.data);
         })
@@ -31,33 +30,40 @@ const authCheck = (req, res, next) => {
 const adminAuthCheck = (req, res, next) => {
 
     const token = req.cookies.token;
-    jwt.verify(token, process.env.SECRET_KEY, (err, payload) => {
-        if (err) {
-            res.status(401).send("Invalid Cookie");
-        } else if (payload.data.role !== "admin") {
-            res.status(403).send("Not Admin");
-        } else {
-            next();
-        }
-    })
-
+    if (token) {
+        jwt.verify(token, process.env.SECRET_KEY, (err, payload) => {
+            if (err) {
+                res.status(401).send("Invalid Cookie");
+            } else if (payload.data.role === "admin") {
+                next();
+            } else {
+                res.status(403).send(payload.data.role);
+            }
+        })
+    } else {
+        res.status(401).send("Not Logged In");
+    }
 
 }
+
 
 const studentAuthCheck = (req, res, next) => {
 
     const token = req.cookies.token;
-    jwt.verify(token, process.env.SECRET_KEY, (err, payload) => {
-        if (err) {
-            res.status(401).send("Invalid Cookie");
-        } else {
-
-
-        }
-        console.log(payload.data);
-    })
-
-    next();
+    if (token) {
+        jwt.verify(token, process.env.SECRET_KEY, (err, payload) => {
+            if (err) {
+                res.status(401).send("Invalid Cookie");
+            } else if (payload.data.role === "student") {
+                req.userId = payload.data.id
+                next();
+            } else {
+                res.status(403).send(payload.data.role);
+            }
+        })
+    } else {
+        res.status(401).send("Not Logged In");
+    }
 
 }
 

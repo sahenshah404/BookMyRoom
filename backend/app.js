@@ -11,21 +11,23 @@ app.use(cookieParser());
 require('dotenv').config();
 
 //Modules
-const samslogin = require("./modules/samsLogin");
 
 //Routing Files
 const login = require("./routes/login");
+const registration = require("./routes/registration");
 const admin  = require("./routes/admin");
+const student  = require("./routes/student");
 
 //Routes
-app.use("/sams",samslogin);
 app.use("/login",login);
+app.use("/register",registration);
 app.use("/admin",admin);
+app.use("/student",student);
 
 
 
 app.get("/home",(req,res)=>{
-    res.send("Hello worldsd");
+    res.send("Hello world");
 });
 
 

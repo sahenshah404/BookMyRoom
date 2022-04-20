@@ -25,8 +25,8 @@ function Headers() {
 
                 {loginStatus.authenticated ?
                     <NavDropdown title="Profile" id="basic-nav-dropdown">
-                        <NavDropdown.Item as={Link} to="account/myProfile">My Profile</NavDropdown.Item>
-                        {/* <NavDropdown.Item as={Link} to="login/admin">Admin Login</NavDropdown.Item> */}
+                        <NavDropdown.Item as={Link} to={"/account/"+loginStatus.role+"/profile"}>My Profile</NavDropdown.Item>
+                        {loginStatus.role === "admin" && <NavDropdown.Item as={Link} to="/account/admin/dashboard">Admin Dashboard</NavDropdown.Item>}
                         <NavDropdown.Divider />
                         <NavDropdown.Item as={Link} to="login/logout"> Logout </NavDropdown.Item>
                     </NavDropdown>
