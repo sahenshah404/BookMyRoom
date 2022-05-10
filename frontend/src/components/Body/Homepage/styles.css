@@ -2,11 +2,12 @@
     object-fit: contain;
 }
 
-.carousel-item{
+/* .carousel-item{
     padding-left: 9%;
-}
+} */
 
 .carousel-item img{
-    height: 450px;
-    width: 90%;
+    /* height: 550px; */
+    height: 90vh;
+    width: 100%;
 }

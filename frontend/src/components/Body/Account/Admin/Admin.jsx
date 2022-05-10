@@ -5,7 +5,7 @@ import AdminDashboard from './AdminDashboard';
 function Admin() {
     return (
         <Routes>
-            <Route path='adminDashboard' element={<AdminDashboard />} />
+            <Route path='dashboard/*' element={<AdminDashboard />} />
         </Routes>
     )
 }

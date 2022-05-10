@@ -13,7 +13,7 @@ function MyProfile() {
       fetch("/student/profile").then((response) => {
         // console.log("asdf");
 
-        if (response.status === 404) {
+        if (response.status === 404 | response.status===503) {
           console.log("data not found");
         }
         else if (response.status !== 200 && response.status !== 403) {

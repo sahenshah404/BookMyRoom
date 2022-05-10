@@ -1,60 +1,35 @@
-import { React, useContext, useEffect, useState } from 'react';
+import { React, useContext } from 'react';
 import LoginContext from "../../../../context/LoginContext";
+import { Route, Routes } from 'react-router-dom';
+
+import Cards from './Cards';
+import Students from "./Students/Students"
 
 function AdminDashboard() {
-  const [loginStatus, setLoginStatus] = useContext(LoginContext);
-  const [dashBoardData, setDashboardData] = useState({ data: "dat" });
-  // console.log(dashBoardData.data);
-  useEffect(() => {
-    if (loginStatus.authenticated === true && loginStatus.role === "admin") {
-
-      fetch("/admin/dashboard").then((response) => {
-
-        if (response.status !== 200 && response.status !== 403) {
-          setLoginStatus({
-            authenticated: false,
-            role: "unknown"
-          })
-        }
-
-        if (response.status === 403) {
-          response.text().then((data) => {
-            setLoginStatus((prev) => {
-              return {
-                ...prev,
-                role: data
-              }
-            })
-
-          })
-        }
-
-        if (response.status === 200) {
-          response.json().then((data) => {
-            setDashboardData((prev) => {
-              return {
-                ...prev,
-                ...data
-              }
-            })
-          })
-        }
-      })
-        .catch(() => {
-          console.log("error fetching");
-        })
-    }
-
-
-  }, [loginStatus, setLoginStatus, dashBoardData.data])
-
+  const [loginStatus] = useContext(LoginContext);
+  
 
 
   if (loginStatus.authenticated === true && loginStatus.role === "admin") {
+    
     return (
       <div className='container-fluid'>
-        <div className='formDesign col-md-6 col-sm-9 col-11 bg-dark'>
-          Admin Dashboard
+        <div className='formDesign '>
+          {
+            <div>
+              
+              <Routes>
+                <Route path='' element={<Cards />} />
+                <Route path='students/*' element={< Students />} />
+                <Route path='hostels' element={< h3> Hostel list </h3>} />
+                <Route path='allocated' element={< h3> Currently allocated List </h3>} />
+                <Route path='addHostel' element={< h3> Add Hostel </h3>} />
+                <Route path='delHostel' element={< h3> Delete Hostel </h3>} />
+                {/* <Cards count={counts} /> */}
+              </Routes>
+            </div>
+            
+          }
         </div>
       </div>
     )
@@ -62,7 +37,6 @@ function AdminDashboard() {
   else {
     return (
       <div>not admin</div>
-
     )
   }
 }

@@ -2,4 +2,24 @@
   body {
     min-height: 100%;
     background-color: rgb(161, 151, 151);
+    /* margin-bottom: 60px; */
   }
+
+  .contactUs{
+    margin-bottom: 5rem !important;
+  }
+
+  .cards{
+    border-left-width: 3px;
+    border-right-width: 3px;
+    border-color: rgb(108, 117, 125);
+    border-radius: 10px;
+    
+  }
+
+  .cardCount{
+    color: aqua;
+  }
+
+
+
