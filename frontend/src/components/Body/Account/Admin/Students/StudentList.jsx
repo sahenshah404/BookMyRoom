@@ -44,30 +44,34 @@ function StudentList() {
 
     return (
         <>
-            <div className='row bg-dark cards col-12 p-3 mb-3'>
-                <div className='col-lg-4 col-md-6 col-sm-6 col-12 h4'> Name </div>
-                <div className='col-lg-2 col-md-6 col-sm-6 col-12 h4'> Reg_num</div>
-                <div className='col-lg-4 col-md-6 col-sm-6 col-12 h4'> Course</div>
-            </div>
+            <div className='container-fluid'>
+                <div className='formDesign'>
+                <div className='row bg-dark cards col-12 p-3 mb-3'>
+                    <div className='col-lg-4 col-md-6 col-sm-6 col-12 h4'> Name </div>
+                    <div className='col-lg-2 col-md-6 col-sm-6 col-12 h4'> Reg_num</div>
+                    <div className='col-lg-4 col-md-6 col-sm-6 col-12 h4'> Course</div>
+                </div>
 
-            {students.length > 0 ?
-                students.map((student, index) => {
-                    return <div key={index}>
-                        <div className='row bg-secondary cards col-12 p-2 mb-1'>
-                            <div className='col-lg-4 col-md-6 col-sm-6 col-12 h5'> {student.name}</div>
-                            <div className='col-lg-2 col-md-6 col-sm-6 col-12'> {student.reg_num}</div>
-                            <div className='col-lg-4 col-md-6 col-sm-6 col-12'> {student.course}</div>
-                            <div className='col-lg-2 col-md-6 col-sm-6 col-12'>
-                                <Button as={Link} to={student.reg_num} className='btn btn-success'>View Profile</Button>
+                {students.length > 0 ?
+                    students.map((student, index) => {
+                        return <div key={index}>
+                            <div className='row bg-secondary cards col-12 p-2 mb-1'>
+                                <div className='col-lg-4 col-md-6 col-sm-6 col-12 h5'> {student.name}</div>
+                                <div className='col-lg-2 col-md-6 col-sm-6 col-12'> {student.reg_num}</div>
+                                <div className='col-lg-4 col-md-6 col-sm-6 col-12'> {student.course}</div>
+                                <div className='col-lg-2 col-md-6 col-sm-6 col-12'>
+                                    <Button as={Link} to={student.reg_num} className='btn btn-success'>View Profile</Button>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                })
-                :
-                <div>Fetching Data</div>
-            }
-        </>
-    )
+                    })
+                    :
+                    <div>Fetching Data</div>
+                }
+                </div>
+                </div>
+            </>
+            )
 }
 
-export default StudentList
+            export default StudentList

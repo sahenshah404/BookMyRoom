@@ -6,7 +6,7 @@ function AboutUs() {
             <div className='container-fluid'>
                 <div className='formDesign  col-12 bg-dark'>
                     <center>
-                        <h1><u> About Us </u> </h1>
+                        <h1><u> About Us </u> </h1> <br />
                         <h2>SAHIL KUMAR</h2>
                         <h3>MCA 4th Sem</h3>
                         <h4>Department of Computer Science</h4>

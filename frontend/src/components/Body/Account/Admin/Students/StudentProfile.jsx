@@ -39,7 +39,9 @@ function StudentProfile() {
                     })
                 }
             })
-                .catch()
+                .catch((err) => {
+                    console.log("error found");
+                })
         }
     }, [loginStatus, setLoginStatus, reg]);
 
