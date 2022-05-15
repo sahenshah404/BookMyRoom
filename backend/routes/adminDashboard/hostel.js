@@ -1,4 +1,5 @@
 const express = require("express");
+const { ObjectId } = require("mongodb");
 const router = express.Router();
 
 const multer = require("multer");
@@ -78,7 +79,7 @@ router.get("/:name", adminAuthCheck, async (req, res) => {
         res.status(503).send("Connection to database cannot be established");
     } else {
         try {
-            const hostel = await db.collection("hostels").findOne({name:req.params.name});
+            const hostel = await db.collection("hostels").findOne({ name: req.params.name });
             res.json(hostel);
 
         } catch (error) {
@@ -89,8 +90,22 @@ router.get("/:name", adminAuthCheck, async (req, res) => {
 
 });
 
+router.get("/remove/:id", adminAuthCheck, async (req, res) => {
+    const db = await dbClient();
+    if (!db) {
+        res.status(503).send("Connection to database cannot be established");
+    } else {
+        try {
+            await db.collection("hostels").findOneAndDelete({ _id: ObjectId(req.params.id) });
+            res.send();
 
+        } catch (error) {
+            dbClient("reset");
+            res.status(503).send("Connection to database has been interrupted");
+        }
+    };
 
+});
 
 
 module.exports = router;

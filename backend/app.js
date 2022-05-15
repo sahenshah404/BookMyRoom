@@ -5,9 +5,9 @@ const app = express();
 
 
 //Global MiddleWare
-app.use(express.static(__dirname+"/public"));
+app.use(express.static(__dirname + "/public"));
 app.use(express.json());
-app.use(express.urlencoded({extended:false}));
+app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 require('dotenv').config();
 
@@ -17,20 +17,22 @@ require('dotenv').config();
 //Routing Files
 const login = require("./routes/login");
 const registration = require("./routes/registration");
-const adminDashboard  = require("./routes/adminDashboard/dashboard");
-const student  = require("./routes/student");
-const contact = require("./routes/contact")
+const adminDashboard = require("./routes/adminDashboard/dashboard");
+const student = require("./routes/student");
+const contact = require("./routes/contact");
+const gallery = require("./routes/gallery");
 
 //Routes
-app.use("/login",login);
-app.use("/register",registration);
-app.use("/admin/dashboard",adminDashboard);
-app.use("/student",student);
-app.use("/contact",contact);
+app.use("/login", login);
+app.use("/register", registration);
+app.use("/admin/dashboard", adminDashboard);
+app.use("/student", student);
+app.use("/contact", contact);
+app.use("/gallery", gallery);
 
 
 
-app.get("/home",(req,res)=>{
+app.get("/home", (req, res) => {
     res.send("Hello world");
 });
 

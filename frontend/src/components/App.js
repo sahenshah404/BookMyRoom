@@ -5,11 +5,6 @@ import { LoginProvider } from "../context/LoginContext";
 
 function App() {
 
-  // fetch("/home")
-  // .then((data)=>{
-  //   data.text().then(d => console.log(d));
-  // })
-
   return (
     <div className="App">
       <LoginProvider>

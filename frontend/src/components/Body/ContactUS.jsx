@@ -34,7 +34,7 @@ function ContactUS() {
         else if (input.email.length < 1) {
             setWarning("Please enter your email address");
         }
-        else if (!input.email.match(/\w+\@\w+\.\w+/)){
+        else if (!input.email.match(/\w+@\w+\.\w+/)){
             setWarning("Please enter a valid email")
         }
         else if (input.issue.length < 1) {

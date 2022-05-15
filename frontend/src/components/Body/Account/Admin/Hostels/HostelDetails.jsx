@@ -9,7 +9,6 @@ function HostelDetails() {
 
     const [loginStatus, setLoginStatus] = useContext(LoginContext);
     const [hostelData, setHostelData] = useState({});
-    console.log(hostelData);
 
     useEffect(() => {
         if (loginStatus.authenticated === true && loginStatus.role === "admin") {
@@ -117,7 +116,7 @@ function HostelDetails() {
                     </div>
                 </div>
 
-                <div className='container-fluid'><br />
+                <div className='container-fluid mb-5'><br />
                         <span className='h1'> Images</span>
                     <div className='text-white p-3 '>
                         <div className='row'>
