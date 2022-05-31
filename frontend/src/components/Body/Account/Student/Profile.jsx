@@ -76,7 +76,6 @@ function MyProfile() {
             <center><h1 className="text-uppercase fs-1">{studentDetails.name}</h1></center>
             <table className='w-100'>
               <tbody className=" fs-5">
-                <br/>
                 <tr>
                   <td>Reg No</td>
                   <td>{studentDetails.reg_num}</td>

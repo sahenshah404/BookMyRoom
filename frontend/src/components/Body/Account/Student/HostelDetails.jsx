@@ -1,50 +1,33 @@
-import { React, useContext, useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
-import LoginContext from '../../../../../context/LoginContext';
-import { Carousel, Card } from 'react-bootstrap';
+import { React, useState, useEffect } from 'react';
+import { Link, useParams } from 'react-router-dom';
+import { Carousel, Card, Button } from 'react-bootstrap';
 
 function HostelDetails() {
     let params = useParams();
     const id = params.id;
 
-    const [loginStatus, setLoginStatus] = useContext(LoginContext);
     const [hostelData, setHostelData] = useState({});
 
     useEffect(() => {
-        if (loginStatus.authenticated === true && loginStatus.role === "admin") {
-            fetch("/admin/dashboard/hostel/" + id).then((response) => {
+        fetch("/student/hostel/detail/" + id).then((response) => {
 
-                if (response.status === 503 || response.status === 404) {
-                    console.log("database connection problem");
-                }
-                else if (response.status === 401) {
-                    setLoginStatus({
-                        authenticated: false,
-                        role: "unknown"
-                    })
-                }
-                else if (response.status === 403) {
-                    response.text().then((data) => {
-                        setLoginStatus((prev) => {
-                            return {
-                                ...prev,
-                                role: data
-                            }
-                        })
-
-                    })
-                }
-                else if (response.status === 200) {
-                    response.json().then((data) => {
-                        setHostelData(data)
-                    })
-                }
-            })
-                .catch((err) => {
-                    console.log("error found");
+            if (response.status === 503 || response.status === 204) {
+                console.log("database connection problem");
+            }
+            else if (response.status === 401 || response.status === 403) {
+                console.log("Unauthorized");
+            }
+            else if (response.status === 200) {
+                response.json().then((data) => {
+                    setHostelData(data)
                 })
-        }
-    }, [loginStatus, setLoginStatus, id]);
+            }
+        })
+            .catch((err) => {
+                console.log("error found");
+            })
+
+    }, [id]);
 
     if (hostelData.images) {
         if (hostelData.images.length >= 4) {
@@ -113,6 +96,10 @@ function HostelDetails() {
                             </table>
 
                         </div>
+                    </div>
+                    <div className='d-grid px-3'>
+                        <Button className='btn btn-success btn-lg '
+                            as={Link} to="book">Book this Hostel</Button>
                     </div>
                 </div>
 

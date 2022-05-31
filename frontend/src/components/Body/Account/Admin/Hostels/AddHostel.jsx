@@ -31,7 +31,6 @@ function AddHostel() {
                 [e.target.name]: e.target.files
             }
         })
-        console.log(e.target.files);
     }
 
     const submit = (e) => {
@@ -56,7 +55,7 @@ function AddHostel() {
                 data.append("images", input.images[i]);
 
             }
-
+            
             fetch("/admin/dashboard/hostel/add", {
                 method: "POST",
                 body: data

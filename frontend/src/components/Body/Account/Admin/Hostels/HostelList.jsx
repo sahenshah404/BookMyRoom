@@ -34,7 +34,7 @@ function HostelList() {
                                                 <Card.Text>
                                                     Total Rooms : {hostel.total_room}
                                                 </Card.Text>
-                                                <Button as={Link} to={hostel.name} variant="success">See Hostel Details</Button>
+                                                <Button as={Link} to={hostel._id} variant="success">See Hostel Details</Button>
                                             </Card.Body>
                                         </Card>
                                     </div>
