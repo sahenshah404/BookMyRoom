@@ -1,4 +1,5 @@
 const express = require("express");
+const { ObjectId } = require("mongodb");
 const router = express.Router();
 
 const dbClient = require("../../modules/dbConnect");
@@ -12,12 +13,12 @@ router.get("/", adminAuthCheck, async (req, res) => {
         res.status(503).send("Connection to database cannot be established");
     } else {
         try {
-            let studentList = []
-            const students = await db.collection("students").find();
-            await students.forEach(element => {
-                studentList.push(element);
+            let complaintList = []
+            const complaint = await db.collection("complaints").find({ status: { $ne: "resolved" } });
+            await complaint.forEach(element => {
+                complaintList.push(element);
             });
-            res.json(studentList);
+            res.json(complaintList);
 
         } catch (error) {
             dbClient("reset");
@@ -27,16 +28,16 @@ router.get("/", adminAuthCheck, async (req, res) => {
 
 });
 
-router.get("/:reg", adminAuthCheck, async (req, res) => {
+
+router.get("/resolved/:id", adminAuthCheck, async (req, res) => {
     const db = await dbClient();
-    const reg = req.params.reg;
 
     if (!db) {
         res.status(503).send("Connection to database cannot be established");
     } else {
         try {
-            const student = await db.collection("students").findOne({ "reg_num": reg });
-            res.json(student);
+            await db.collection("complaints").updateOne({ _id: ObjectId(req.params.id) }, { $set: { status: "resolved" } })
+            res.send();
 
         } catch (error) {
             dbClient("reset");

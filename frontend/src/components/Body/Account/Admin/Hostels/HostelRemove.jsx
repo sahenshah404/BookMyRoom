@@ -38,7 +38,10 @@ function HostelRemove() {
                     //     ]
                     // })
                     setRemoveHostel({});
-                } else {
+                } else if (response.status === 201) {
+                    alert("Students are still allocated to the hostel Cant delete");
+                }
+                else {
                     console.log("error in removing hostel ");
                 }
             }

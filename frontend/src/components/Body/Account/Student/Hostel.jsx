@@ -2,10 +2,9 @@ import { React, useState, useEffect } from "react";
 import MyHostel from "./MyHostel";
 import HostelList from "./HostelList";
 
-function Hostel() {
+function Hostel(props) {
   const [hasHostel, setHasHostel] = useState(undefined);
   const [myHostel, setMyHostel] = useState({});
-
   useEffect(() => {
     fetch("/student/hostel")
       .then((response) => {
@@ -27,17 +26,24 @@ function Hostel() {
         console.log("Error Found");
       });
   }, []);
-
-  if (hasHostel === true) {
-    return <MyHostel data={myHostel} />;
-  } else if (hasHostel === false) {
-    return <HostelList />;
+  
+  if (props.change === false) {
+    if (hasHostel === true) {
+      return <MyHostel data={myHostel} />;
+    } else if (hasHostel === false) {
+      return <HostelList />;
+    }
+    else {
+      return <div>
+        Fetching Data
+      </div>
+    }
   }
   else {
-    return <div>
-      Fetching Data
-    </div>
+    return <HostelList />;
+
   }
+
 }
 
 export default Hostel;

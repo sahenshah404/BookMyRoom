@@ -97,6 +97,10 @@ function HostelDetails() {
                                         <td>{hostelData.total_capacity}</td>
                                     </tr>
                                     <tr>
+                                        <td>Accomodations Left</td>
+                                        <td>{hostelData.total_capacity-hostelData.allocCount}</td>
+                                    </tr>
+                                    <tr>
                                         <td>Hostel For</td>
                                         <td>{hostelData.gender === "M" ? "Boys" : "Girls"}</td>
                                     </tr>

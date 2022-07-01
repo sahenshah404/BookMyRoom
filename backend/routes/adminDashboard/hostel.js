@@ -81,6 +81,8 @@ router.get("/:id", adminAuthCheck, async (req, res) => {
     } else {
         try {
             const hostel = await db.collection("hostels").findOne({ _id: ObjectId(req.params.id) });
+            const allocCount = await db.collection("allocations").countDocuments({hostelId:ObjectId(req.params.id)});
+            hostel.allocCount = allocCount;
             res.json(hostel);
 
         } catch (error) {
@@ -97,8 +99,14 @@ router.get("/remove/:id", adminAuthCheck, async (req, res) => {
         res.status(503).send("Connection to database cannot be established");
     } else {
         try {
-            await db.collection("hostels").findOneAndDelete({ _id: ObjectId(req.params.id) });
-            res.send();
+            const allocCount = await db.collection("allocations").countDocuments({ hostelId: ObjectId(req.params.id) });
+            if(allocCount<1){
+
+                await db.collection("hostels").findOneAndDelete({ _id: ObjectId(req.params.id) });
+                res.send();
+            }else{
+                res.status(201).send();
+            }
 
         } catch (error) {
             dbClient("reset");

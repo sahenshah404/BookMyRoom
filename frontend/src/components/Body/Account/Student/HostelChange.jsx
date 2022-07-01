@@ -3,32 +3,23 @@ import { useParams } from "react-router-dom";
 import { Button, Modal } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 
-function BookHostel() {
+function HostelChange() {
   const hostelId = useParams().id;
   const [rooms, setRooms] = useState();
   const [response, setResponse] = useState();
-  const [roomConfirm, setRoomConfirm] = useState(false);
-  const [warning, setWarning] = useState({
-    show: false,
-    warning: ""
-  });
 
-  const [paymentData, setPaymentData] = useState({
-    id: "",
-    image: []
-  });
-
+  const [confirm, setConfirm] = useState({ show: false });
   let navigate = useNavigate();
 
+
   // const [show, setShow] = useState(false);
-  const [confirm, setConfirm] = useState({ show: false });
   const handleClose = () => setConfirm((prev) => {
     return {
       ...prev,
       show: false
     }
   })
-  const handleClose2 = () => setRoomConfirm(false);
+
   // const handleShow = () => setShow(true);
   // console.log(confirm.roomNo);
   // console.log(response);
@@ -70,78 +61,41 @@ function BookHostel() {
     });
   };
 
-  const handleIdChange = (e) => {
-    setPaymentData((prev) => {
-      return {
-        ...prev,
-        [e.target.name]: e.target.value
-      }
-    });
-  };
-
-  const handleFileChange = (e) => {
-    setPaymentData((prev) => {
-      return {
-        ...prev,
-        [e.target.name]: e.target.files
-      }
-    })
-  }
-
-
   const sendData = ({ name, room }) => {
-    // const bookingData = {
-    //   name: name,
-    //   room: room,
-    //   id: hostelId,
-    //   transactionId : paymentData.id,
-    //   image: paymentData.image
-    // };
+   
+    const bookingData = {
+      name: name,
+      room: room,
+      id: hostelId,
+      // transactionId : paymentData.id,
+      // image: paymentData.image
+    };
 
-    if (paymentData.id.length < 10) {
-      setWarning({
-        show: true,
-        warning: "payment id is not valid"
+
+    fetch("/student/hostel/change/book", {
+      method: "POST",
+      credentials: "include",
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(bookingData)
+    })
+      .then((resp) => {
+        if (resp.status === 401 || resp.status === 403) {
+          console.log("Not Logged in or unauthorized request");
+        } else if (resp.status === 202 || resp.status === 204) {
+          alert("The room is full or you already have a room alloted");
+        } else if (resp.status === 200) {
+          handleClose();
+          navigate("/account/student/hostel", { replace: true });
+        } else {
+          console.log("Something went wrong");
+        }
       })
-    }
-    else if (paymentData.image.length < 1) {
-      setWarning({
-        show: true,
-        warning: "Screenshot not uploaded"
-      })
-    }
-    else {
-
-      const data = new FormData();
-      data.append("name", name);
-      data.append("room", room);
-      data.append("id", hostelId);
-      data.append("transactionId", paymentData.id);
-
-      for (let i = 0; i < paymentData.image.length; i++) {
-        data.append("image", paymentData.image[i]);
-      }
-
-
-      fetch("/student/hostel/book", {
-        method: "POST",
-
-        body: data
-      })
-        .then((resp) => {
-          if (resp.status === 401 || resp.status === 403) {
-            console.log("Not Logged in or unauthorized request");
-          } else if (resp.status === 202 || resp.status === 204) {
-            alert("The room is full or you already have a room alloted");
-          } else if (resp.status === 200) {
-            handleClose();
-            navigate("/account/student/hostel", { replace: true });
-          } else {
-            console.log("Something went wrong");
-          }
-        })
-        .catch();
-    }
+      .catch(err=>{
+        console.log(err);
+      });
+    // }
   };
 
   return (
@@ -218,14 +172,12 @@ function BookHostel() {
               </Button>
               <Button
                 variant="primary"
-                onClick={() =>
-                //   handleBook({
-                //     name: response.hostel.name,
-                //     room: confirm.roomNo,
-                //   })
-                {
+                onClick={() => {
                   handleClose();
-                  setRoomConfirm(true);
+                  sendData({
+                    name: response.hostel.name,
+                    room: confirm.roomNo,
+                  })
                 }
                 }
               >
@@ -236,48 +188,9 @@ function BookHostel() {
         </>
       )}
 
-      {response && (
-        <>
-          <Modal show={roomConfirm} onHide={handleClose2} centered>
-            <Modal.Header closeButton>
-              <Modal.Title>Confirmation Box</Modal.Title>
-            </Modal.Header>
-            <form>
-              <Modal.Body>
-                {warning.show && <div className="text-danger h3">
-                  {warning.warning}
-                </div>}
-                Pay on this UPI Id : puhostelfees@upi
-                <br />
-                Amount: 12190
-                <br />
-                Enter the transaction id <input type="text" onChange={handleIdChange} name="id" required />
-                <br />
-                Screenshot of payment
-                <input type="file" accept='image/*' onChange={handleFileChange} name="image" required />
-              </Modal.Body>
-              <Modal.Footer>
-                <Button variant="secondary" onClick={handleClose2}>
-                  Close
-                </Button>
-                <Button
-                  variant="primary"
-                  onClick={() =>
-                    sendData({
-                      name: response.hostel.name,
-                      room: confirm.roomNo,
-                    })
-                  }
-                >
-                  Book My Room
-                </Button>
-              </Modal.Footer>
-            </form>
-          </Modal>
-        </>
-      )}
+
     </div>
   );
 }
 
-export default BookHostel;
+export default HostelChange

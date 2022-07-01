@@ -29,6 +29,7 @@ function Headers() {
                     <NavDropdown title="Profile" id="basic-nav-dropdown">
                         {loginStatus.role === "student" && <NavDropdown.Item as={Link} to={"/account/" + loginStatus.role + "/profile"}>My Profile</NavDropdown.Item>}
                         {loginStatus.role === "student" && <NavDropdown.Item as={Link} to={"/account/" + loginStatus.role + "/hostel"}>My Hostel</NavDropdown.Item>}
+                        {loginStatus.role === "student" && <NavDropdown.Item as={Link} to={"/account/" + loginStatus.role + "/complaint"}>Raise a complaint!</NavDropdown.Item>}
                         {loginStatus.role === "admin" && <NavDropdown.Item as={Link} to="/account/admin/dashboard">Admin Dashboard</NavDropdown.Item>}
                         <NavDropdown.Divider />
                         <NavDropdown.Item as={Link} to="login/logout"> Logout </NavDropdown.Item>

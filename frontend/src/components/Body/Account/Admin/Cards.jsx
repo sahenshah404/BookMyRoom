@@ -138,7 +138,7 @@ function Cards() {
 
               <hr />
 
-              <Card className='bg-dark cards col-lg-4 col-md-6 col-sm-6 col-12 mb-5'>
+              {/* <Card className='bg-dark cards col-lg-4 col-md-6 col-sm-6 col-12 mb-5'>
                 <Card.Header as="h5">Faculty</Card.Header>
                 <Card.Body>
                   <Card.Title>List of Faculties
@@ -148,9 +148,9 @@ function Cards() {
                   </Card.Text>
                   <Button as={Link} to="faculties" variant="success" className="d-grid"> Faculties list </Button>
                 </Card.Body>
-              </Card>
+              </Card> */}
 
-              <Card className='bg-dark cards col-lg-4 col-md-6 col-sm-6 col-12 mb-5'>
+              {/* <Card className='bg-dark cards col-lg-4 col-md-6 col-sm-6 col-12 mb-5'>
                 <Card.Header as="h5">Remove Faculty</Card.Header>
                 <Card.Body>
                   <Card.Title>Remove a registered Faculty
@@ -160,9 +160,9 @@ function Cards() {
                   </Card.Text>
                   <Button as={Link} to="remFaculty" variant="success" className="d-grid">Remove Faculty</Button>
                 </Card.Body>
-              </Card>
+              </Card> */}
 
-              <Card className='bg-dark cards col-lg-4 col-md-6 col-sm-6 col-12 mb-5'>
+              {/* <Card className='bg-dark cards col-lg-4 col-md-6 col-sm-6 col-12 mb-5'>
                 <Card.Header as="h5">Edit Faculties</Card.Header>
                 <Card.Body>
                   <Card.Title>Edit Faculties details
@@ -171,6 +171,33 @@ function Cards() {
                     click below to edit Facultied details
                   </Card.Text>
                   <Button as={Link} to="editFaculty" variant="success" className="d-grid"> Edit faculty </Button>
+                </Card.Body>
+              </Card> */}
+
+              <hr />
+              <Card className='bg-dark cards col-lg-4 col-md-6 col-sm-6 col-12 mb-5'>
+                <Card.Header as="h5">Allocation Archive</Card.Header>
+                <Card.Body>
+                  <Card.Title>allocation Archive:
+                    <span className='cardCount'>{" " + count.archiveCount}</span>
+                  </Card.Title>
+                  <Card.Text>
+                    click below to see All the allocation ever happened
+                  </Card.Text>
+                  <Button as={Link} to="allocationArchive" variant="success" className="d-grid">Allocation Archives</Button>
+                </Card.Body>
+              </Card>
+
+              <Card className='bg-dark cards col-lg-4 col-md-6 col-sm-6 col-12 mb-5'>
+                <Card.Header as="h5">Complaints</Card.Header>
+                <Card.Body>
+                  <Card.Title>Complaint list:
+                    <span className='cardCount'>{" " + count.complaintCount}</span>
+                  </Card.Title>
+                  <Card.Text>
+                    click below to see the complaints
+                  </Card.Text>
+                  <Button as={Link} to="complaints" variant="success" className="d-grid">Complaint List</Button>
                 </Card.Body>
               </Card>
 
